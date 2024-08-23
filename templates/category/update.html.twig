@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -10,34 +10,26 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="mt-5">Create a new product</h2>
+    <h2 class="mt-5">Update</h2>
     {{ form_start(form, {'id': 'contactForm', 'novalidate': 'novalidate'}) }}
-
-    <div class="form-group row">
-        <div class="col-md-6 mb-3">
-            {{ form_row(form.name) }}
-        </div>
-        <div class="col-md-6 mb-3">
-            {{ form_row(form.company) }}
-        </div>
+    <div class="form-group">
+        <label for="name">{{ form_label(form.name) }}</label>
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
     </div>
 
-    <div class="form-group row">
-        <div class="col-md-6 mb-3">
-            {{ form_row(form.size) }}
-        </div>
-        <div class="col-md-6 mb-3">
-            {{ form_row(form.comment) }}
-        </div>
+    <div class="form-group">
+        <label for="company">{{ form_label(form.createdAt) }}</label>
+        {{ form_widget(form.createdAt, {'attr': {'class': 'form-control'}}) }}
     </div>
 
-    <div class="form-group row text-center">
-        <div class="col-md-12">
-            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
-        </div>
+    <div class="form-group">
+        <label for="size">{{ form_label(form.updatedAt) }}</label>
+        {{ form_widget(form.updatedAt, {'attr': {'class': 'form-control'}}) }}
     </div>
+
 
     {{ form_end(form) }}
+
 </div>
 </body>
 </html>
