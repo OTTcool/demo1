@@ -18,20 +18,20 @@ class CategoryController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager, CategoryRepository $categoryRepo)
     {
         $this->entityManager = $entityManager;
-        $this->categoryRepo  = $categoryRepo;
+        $this->categoryRepo = $categoryRepo;
     }
 
-    #[Route('/category', name: 'app_category')]
+    #[Route('/categories', name: 'app_category')]
     public function index(): Response
     {
-        $category = $this->categoryRepo->findAll();
+        $categories = $this->categoryRepo->findAll();
 
         return $this->render('category/index.html.twig', [
-            'category' => $category,
+            'categories' => $categories,
         ]);
     }
 
-    #[Route('/category/create', name: 'app_category_create')]
+    #[Route('/categories/create', name: 'app_category_create')]
     public function create(Request $request): Response
     {
         $form = $this->createForm(CategoryFormType::class);
@@ -50,20 +50,19 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/category/update/{id}', name: 'app_category_update')]
+    #[Route('/categories/update/{id}', name: 'app_category_update')]
     public function updateCategory(int $id, Request $request): Response
     {
         $category = $this->categoryRepo->find($id);
 
         if ($category === null) {
-            throw $this->createNotFoundException('Product not found');
+            throw $this->createNotFoundException('Category not found');
         }
 
         $form = $this->createForm(CategoryFormType::class, $category);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $product = $form->getData();
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_category');
@@ -74,7 +73,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/category/delete/{id}', name: 'app_category_delete')]
+    #[Route('/categories/delete/{id}', name: 'app_category_delete')]
     public function deleteUser(int $id): Response
     {
         $category = $this->categoryRepo->find($id);
@@ -86,24 +85,18 @@ class CategoryController extends AbstractController
         return $this->render('category/delete.html.twig', [
             'category' => $category,
         ]);
-
-
     }
 
-    #[Route('/category/{id}/delete', name: 'app_category_delete_by_id', methods: ['POST'])]
-    public function deleteCategoryById(int $id, EntityManagerInterface $entityManager): Response
+    #[Route('/categories/{id}/delete', name: 'app_category_delete_by_id', methods: ['POST'])]
+    public function deleteCategoryById(int $id): Response
     {
         $category = $this->categoryRepo->find($id);
 
         if ($category) {
-            $entityManager->remove($category);
-            $entityManager->flush();
+            $this->entityManager->remove($category);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('app_category');
-
-
     }
-
-
 }

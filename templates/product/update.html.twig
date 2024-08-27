@@ -18,17 +18,6 @@
         {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
         {{(form_errors(form.name)) }}
     </div>
-
-    <div class="form-group col-md-3">
-        <label for="company">{{ form_label(form.company) }}</label>
-        {{ form_widget(form.company, {'attr': {'class': 'form-control'}}) }}
-    </div>
-
-    <div class="form-group col-md-3">
-        <label for="size">{{ form_label(form.size) }}</label>
-        {{ form_widget(form.size, {'attr': {'class': 'form-control'}}) }}
-    </div>
-
     <div class="form-group col-md-3">
         <label for="comment">{{ form_label(form.comment) }}</label>
         {{ form_widget(form.comment, {'attr': {'class': 'form-control'}}) }}

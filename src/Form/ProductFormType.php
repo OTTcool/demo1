@@ -22,14 +22,11 @@ class ProductFormType extends AbstractType
                     new Length(min: 10, max: 50, minMessage: 'Yêu cầu nhập đủ 10 kí tự'),
                 ]
             ])
-            ->add('company')
-            ->add('size')
             ->add('comment')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
             ])
-            ->add('submit', SubmitType::class);
-        ;
+            ->add('submit', SubmitType::class);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
