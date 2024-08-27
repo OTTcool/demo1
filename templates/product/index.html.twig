@@ -22,8 +22,6 @@
         <thead class="thead-light">
         <tr>
             <th>Name</th>
-            <th>Company</th>
-            <th>Size</th>
             <th>Comment</th>
             <th>Actions</th>
         </thead>
@@ -31,8 +29,6 @@
         {% for product in products %}
             <tr>
                 <td>{{ product.name }}</td>
-                <td>{{ product.company }}</td>
-                <td>{{ product.size }}</td>
                 <td>{{ product.comment }}</td>
                 <td>
                     <a href="/products/read/{{ product.id }}" class="btn btn-info btn-sm">Read</a>
