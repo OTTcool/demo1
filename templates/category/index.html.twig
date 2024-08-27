@@ -17,7 +17,7 @@
 <body>
 <div class="container mt-5">
     <h1 class="display-4 text-primary font-weight-bold">Category</h1>
-    <a href="/categorys/create" class="btn btn-success mb-3">Add category</a>
+    <a href="/category/create" class="btn btn-success mb-3">Add category</a>
     <table class="table table-bordered table-striped table-hover ">
         <thead class="thead-light">
         <tr>
@@ -28,14 +28,14 @@
 
         </thead>
         <tbody>
-        {% for category in categorys %}
+        {% for category in category %}
             <tr>
                 <td>{{ category.name }}</td>
                 <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="/categorys/update/{{ category.id }}" class="btn btn-warning btn-sm">Update</a>
-                    <a href="/categorys/delete/{{ category.id }}" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="/category/update/{{ category.id }}" class="btn btn-warning btn-sm">Update</a>
+                    <a href="/category/delete/{{ category.id }}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         {% endfor %}

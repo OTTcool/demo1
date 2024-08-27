@@ -38,7 +38,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/users/ajouter', name: 'app_user_ajouter')]
+    #[Route('/users/create', name: 'app_user_create')]
     public function create(Request $request): Response
     {
         $form = $this->createFormBuilder()
@@ -101,7 +101,7 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
 
-        return $this->render('user/ajouter.html.twig', [
+        return $this->render('user/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }

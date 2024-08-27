@@ -38,7 +38,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/products/ajouter', name: 'app_product_ajouter')]
+    #[Route('/products/create', name: 'app_product_create')]
     public function create(Request $request): Response
     {
         $form = $this->createForm(ProductFormType::class);
@@ -51,22 +51,22 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_product');
         }
 
-        return $this->render('product/ajouter.html.twig', [
+        return $this->render('product/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/products/create', name: 'app_product_create', methods: 'POST')]
-    public function createProduct(Request $request): Response
-    {
-        $data = $request->get('form');
-
-//        $product = new Product();
-//        $product->setName($data['name']);
-//        $this->productRepo->save($product);
-
-        return $this->redirectToRoute('app_product');
-    }
+//    #[Route('/products/create', name: 'app_product_create', methods: 'POST')]
+//    public function createProduct(Request $request): Response
+//    {
+//        $data = $request->get('form');
+//
+////        $product = new Product();
+////        $product->setName($data['name']);
+////        $this->productRepo->save($product);
+//
+//        return $this->redirectToRoute('app_product');
+//    }
 
     #[Route('/products/read/{id}', name: 'app_product_read')]
     public function readProduct(int $id): Response
@@ -125,13 +125,15 @@ class ProductController extends AbstractController
     #[Route('/products/{id}/delete', name: 'app_product_delete_by_id', methods: ['POST'])]
     public function deleteProductById(int $id, EntityManagerInterface $entityManager): Response
     {
-//        $product = $this->productRepo->find($id);
-//
-//        if ($product) {
-//            $entityManager->remove($product);
-//            $entityManager->flush();
-//        }
+        $product = $this->productRepo->find($id);
+
+        if ($product) {
+            $entityManager->remove($product);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_product');
+
+
     }
 }

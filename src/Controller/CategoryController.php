@@ -14,25 +14,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
 private $entityManager;
-private $categorysRepo;
+private $categoryRepo;
 
-public function __construct(EntityManagerInterface $entityManager, CategoryRepository $categorysRepo)
+public function __construct(EntityManagerInterface $entityManager, CategoryRepository $categoryRepo)
 {
 $this->entityManager = $entityManager;
-$this->categorysRepo = $categorysRepo;
+$this->categoryRepo = $categoryRepo;
 }
 
-#[Route('/categorys', name: 'app_category')]
+#[Route('/category', name: 'app_category')]
 public function index(): Response
 {
-$categorys = $this->categorysRepo->findAll();
+$category = $this->categoryRepo->findAll();
 
 return $this->render('category/index.html.twig', [
-'categorys' => $categorys,
+'category' => $category,
 ]);
 }
 
-#[Route('/categorys/create', name: 'app_category_create')]
+#[Route('/category/create', name: 'app_category_create')]
 public function create(Request $request): Response
 {
 $form = $this->createForm(CategoryFormType::class);
@@ -49,10 +49,10 @@ return $this->render('category/create.html.twig', [
 'form' => $form->createView(),
 ]);
 }
-    #[Route('/categorys/update/{id}', name: 'app_category_update')]
+    #[Route('/category/update/{id}', name: 'app_category_update')]
     public function updateCategory(int $id, Request $request): Response
     {
-        $category = $this->categorysRepo->find($id);
+        $category = $this->categoryRepo->find($id);
 
         if ($category === null) {
             throw $this->createNotFoundException('Product not found');
@@ -71,10 +71,10 @@ return $this->render('category/create.html.twig', [
         ]);
     }
 
-    #[Route('/categorys/delete/{id}', name: 'app_category_delete')]
+    #[Route('/category/delete/{id}', name: 'app_category_delete')]
     public function deleteUser(int $id): Response
     {
-        $category = $this->categorysRepo->find($id);
+        $category = $this->categoryRepo->find($id);
 
         if ($category === null)
         {
@@ -87,10 +87,10 @@ return $this->render('category/create.html.twig', [
 
 
     }
-    #[Route('/categorys/{id}/delete', name: 'app_category_delete_by_id', methods: ['POST'])]
+    #[Route('/category/{id}/delete', name: 'app_category_delete_by_id', methods: ['POST'])]
     public function deleteCategoryById(int $id, EntityManagerInterface $entityManager): Response
     {
-        $category = $this->categorysRepo->find($id);
+        $category = $this->categoryRepo->find($id);
 
         if ($category) {
             $entityManager->remove($category);
