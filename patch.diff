@@ -1,0 +1,433 @@
+From 59833c30968422c26583f260e9f2b8bcb0a3d354 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Hu=CC=9B=CC=83u=20Tha=CC=86ng=20Ho=CC=82=CC=80?=
+ <huuthang2109@gmail.com>
+Date: Tue, 27 Aug 2024 10:01:46 +0700
+Subject: [PATCH] Fix migration
+
+---
+ migrations/Version20240813082613.php  | 37 --------------
+ migrations/Version20240815024448.php  | 31 ------------
+ migrations/Version20240821094331.php  | 31 ------------
+ migrations/Version20240822212527.php  | 33 ------------
+ migrations/Version20240823043319.php  | 35 -------------
+ migrations/Version20240823043334.php  | 35 -------------
+ migrations/Version20240827030057.php  | 39 +++++++++++++++
+ src/Controller/CategoryController.php | 72 ++++++++++++++-------------
+ 8 files changed, 76 insertions(+), 237 deletions(-)
+ delete mode 100644 migrations/Version20240813082613.php
+ delete mode 100644 migrations/Version20240815024448.php
+ delete mode 100644 migrations/Version20240821094331.php
+ delete mode 100644 migrations/Version20240822212527.php
+ delete mode 100644 migrations/Version20240823043319.php
+ delete mode 100644 migrations/Version20240823043334.php
+ create mode 100644 migrations/Version20240827030057.php
+
+diff --git a/migrations/Version20240813082613.php b/migrations/Version20240813082613.php
+deleted file mode 100644
+index 085a6f5..0000000
+--- a/migrations/Version20240813082613.php
++++ /dev/null
+@@ -1,37 +0,0 @@
+-<?php
+-
+-declare(strict_types=1);
+-
+-namespace DoctrineMigrations;
+-
+-use Doctrine\DBAL\Schema\Schema;
+-use Doctrine\Migrations\AbstractMigration;
+-
+-/**
+- * Auto-generated Migration: Please modify to your needs!
+- */
+-final class Version20240813082613 extends AbstractMigration
+-{
+-    public function getDescription(): string
+-    {
+-        return '';
+-    }
+-
+-    public function up(Schema $schema): void
+-    {
+-        // this up() migration is auto-generated, please modify it to your needs
+-        $this->addSql('CREATE TABLE actor (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-        $this->addSql('CREATE TABLE movie (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, release_year INT NOT NULL, description VARCHAR(255) DEFAULT NULL, image_path VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-        $this->addSql('CREATE TABLE product (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, price INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-        $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-    }
+-
+-    public function down(Schema $schema): void
+-    {
+-        // this down() migration is auto-generated, please modify it to your needs
+-        $this->addSql('DROP TABLE actor');
+-        $this->addSql('DROP TABLE movie');
+-        $this->addSql('DROP TABLE product');
+-        $this->addSql('DROP TABLE messenger_messages');
+-    }
+-}
+diff --git a/migrations/Version20240815024448.php b/migrations/Version20240815024448.php
+deleted file mode 100644
+index a4eccd5..0000000
+--- a/migrations/Version20240815024448.php
++++ /dev/null
+@@ -1,31 +0,0 @@
+-<?php
+-
+-declare(strict_types=1);
+-
+-namespace DoctrineMigrations;
+-
+-use Doctrine\DBAL\Schema\Schema;
+-use Doctrine\Migrations\AbstractMigration;
+-
+-/**
+- * Auto-generated Migration: Please modify to your needs!
+- */
+-final class Version20240815024448 extends AbstractMigration
+-{
+-    public function getDescription(): string
+-    {
+-        return '';
+-    }
+-
+-    public function up(Schema $schema): void
+-    {
+-        // this up() migration is auto-generated, please modify it to your needs
+-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, age INT NOT NULL, tel VARCHAR(50) NOT NULL, pays VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, comment VARCHAR(255) NOT NULL, metier VARCHAR(255) NOT NULL, url VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-    }
+-
+-    public function down(Schema $schema): void
+-    {
+-        // this down() migration is auto-generated, please modify it to your needs
+-        $this->addSql('DROP TABLE user');
+-    }
+-}
+diff --git a/migrations/Version20240821094331.php b/migrations/Version20240821094331.php
+deleted file mode 100644
+index d9917d2..0000000
+--- a/migrations/Version20240821094331.php
++++ /dev/null
+@@ -1,31 +0,0 @@
+-<?php
+-
+-declare(strict_types=1);
+-
+-namespace DoctrineMigrations;
+-
+-use Doctrine\DBAL\Schema\Schema;
+-use Doctrine\Migrations\AbstractMigration;
+-
+-/**
+- * Auto-generated Migration: Please modify to your needs!
+- */
+-final class Version20240821094331 extends AbstractMigration
+-{
+-    public function getDescription(): string
+-    {
+-        return '';
+-    }
+-
+-    public function up(Schema $schema): void
+-    {
+-        // this up() migration is auto-generated, please modify it to your needs
+-        $this->addSql('ALTER TABLE product ADD company VARCHAR(255) NOT NULL, ADD comment LONGTEXT NOT NULL');
+-    }
+-
+-    public function down(Schema $schema): void
+-    {
+-        // this down() migration is auto-generated, please modify it to your needs
+-        $this->addSql('ALTER TABLE product DROP company, DROP comment');
+-    }
+-}
+diff --git a/migrations/Version20240822212527.php b/migrations/Version20240822212527.php
+deleted file mode 100644
+index 5562143..0000000
+--- a/migrations/Version20240822212527.php
++++ /dev/null
+@@ -1,33 +0,0 @@
+-<?php
+-
+-declare(strict_types=1);
+-
+-namespace DoctrineMigrations;
+-
+-use Doctrine\DBAL\Schema\Schema;
+-use Doctrine\Migrations\AbstractMigration;
+-
+-/**
+- * Auto-generated Migration: Please modify to your needs!
+- */
+-final class Version20240822212527 extends AbstractMigration
+-{
+-    public function getDescription(): string
+-    {
+-        return '';
+-    }
+-
+-    public function up(Schema $schema): void
+-    {
+-        // this up() migration is auto-generated, please modify it to your needs
+-        $this->addSql('CREATE TABLE category (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+-        $this->addSql('ALTER TABLE product CHANGE name name VARCHAR(50) DEFAULT NULL');
+-    }
+-
+-    public function down(Schema $schema): void
+-    {
+-        // this down() migration is auto-generated, please modify it to your needs
+-        $this->addSql('DROP TABLE category');
+-        $this->addSql('ALTER TABLE product CHANGE name name VARCHAR(255) DEFAULT NULL');
+-    }
+-}
+diff --git a/migrations/Version20240823043319.php b/migrations/Version20240823043319.php
+deleted file mode 100644
+index f81d0fc..0000000
+--- a/migrations/Version20240823043319.php
++++ /dev/null
+@@ -1,35 +0,0 @@
+-<?php
+-
+-declare(strict_types=1);
+-
+-namespace DoctrineMigrations;
+-
+-use Doctrine\DBAL\Schema\Schema;
+-use Doctrine\Migrations\AbstractMigration;
+-
+-/**
+- * Auto-generated Migration: Please modify to your needs!
+- */
+-final class Version20240823043319 extends AbstractMigration
+-{
+-    public function getDescription(): string
+-    {
+-        return '';
+-    }
+-
+-    public function up(Schema $schema): void
+-    {
+-        // this up() migration is auto-generated, please modify it to your needs
+-        $this->addSql('ALTER TABLE product ADD category_id INT DEFAULT NULL');
+-        $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
+-        $this->addSql('CREATE INDEX IDX_D34A04AD12469DE2 ON product (category_id)');
+-    }
+-
+-    public function down(Schema $schema): void
+-    {
+-        // this down() migration is auto-generated, please modify it to your needs
+-        $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD12469DE2');
+-        $this->addSql('DROP INDEX IDX_D34A04AD12469DE2 ON product');
+-        $this->addSql('ALTER TABLE product DROP category_id');
+-    }
+-}
+diff --git a/migrations/Version20240823043334.php b/migrations/Version20240823043334.php
+deleted file mode 100644
+index 6d6a50e..0000000
+--- a/migrations/Version20240823043334.php
++++ /dev/null
+@@ -1,35 +0,0 @@
+-<?php
+-
+-declare(strict_types=1);
+-
+-namespace DoctrineMigrations;
+-
+-use Doctrine\DBAL\Schema\Schema;
+-use Doctrine\Migrations\AbstractMigration;
+-
+-/**
+- * Auto-generated Migration: Please modify to your needs!
+- */
+-final class Version20240823043334 extends AbstractMigration
+-{
+-    public function getDescription(): string
+-    {
+-        return '';
+-    }
+-
+-    public function up(Schema $schema): void
+-    {
+-        // this up() migration is auto-generated, please modify it to your needs
+-        $this->addSql('ALTER TABLE product ADD category_id INT DEFAULT NULL');
+-        $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
+-        $this->addSql('CREATE INDEX IDX_D34A04AD12469DE2 ON product (category_id)');
+-    }
+-
+-    public function down(Schema $schema): void
+-    {
+-        // this down() migration is auto-generated, please modify it to your needs
+-        $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD12469DE2');
+-        $this->addSql('DROP INDEX IDX_D34A04AD12469DE2 ON product');
+-        $this->addSql('ALTER TABLE product DROP category_id');
+-    }
+-}
+diff --git a/migrations/Version20240827030057.php b/migrations/Version20240827030057.php
+new file mode 100644
+index 0000000..bf30e83
+--- /dev/null
++++ b/migrations/Version20240827030057.php
+@@ -0,0 +1,39 @@
++<?php
++
++declare(strict_types=1);
++
++namespace DoctrineMigrations;
++
++use Doctrine\DBAL\Schema\Schema;
++use Doctrine\Migrations\AbstractMigration;
++
++/**
++ * Auto-generated Migration: Please modify to your needs!
++ */
++final class Version20240827030057 extends AbstractMigration
++{
++    public function getDescription(): string
++    {
++        return '';
++    }
++
++    public function up(Schema $schema): void
++    {
++        // this up() migration is auto-generated, please modify it to your needs
++        $this->addSql('CREATE TABLE category (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
++        $this->addSql('CREATE TABLE product (id INT AUTO_INCREMENT NOT NULL, category_id INT DEFAULT NULL, name VARCHAR(50) DEFAULT NULL, size VARCHAR(255) NOT NULL, company VARCHAR(255) NOT NULL, comment LONGTEXT NOT NULL, INDEX IDX_D34A04AD12469DE2 (category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
++        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, firstname VARCHAR(255) DEFAULT NULL, age INT NOT NULL, tel VARCHAR(50) NOT NULL, pays VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, comment VARCHAR(255) NOT NULL, metier VARCHAR(255) NOT NULL, url VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
++        $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
++        $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
++    }
++
++    public function down(Schema $schema): void
++    {
++        // this down() migration is auto-generated, please modify it to your needs
++        $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD12469DE2');
++        $this->addSql('DROP TABLE category');
++        $this->addSql('DROP TABLE product');
++        $this->addSql('DROP TABLE user');
++        $this->addSql('DROP TABLE messenger_messages');
++    }
++}
+diff --git a/src/Controller/CategoryController.php b/src/Controller/CategoryController.php
+index d8a5ca8..b55ce1c 100644
+--- a/src/Controller/CategoryController.php
++++ b/src/Controller/CategoryController.php
+@@ -2,7 +2,6 @@
+ 
+ namespace App\Controller;
+ 
+-use App\Entity\Category;
+ use App\Form\CategoryFormType;
+ use App\Repository\CategoryRepository;
+ use Doctrine\ORM\EntityManagerInterface;
+@@ -13,42 +12,44 @@ use Symfony\Component\Routing\Annotation\Route;
+ 
+ class CategoryController extends AbstractController
+ {
+-private $entityManager;
+-private $categoryRepo;
++    private $entityManager;
++    private $categoryRepo;
+ 
+-public function __construct(EntityManagerInterface $entityManager, CategoryRepository $categoryRepo)
+-{
+-$this->entityManager = $entityManager;
+-$this->categoryRepo = $categoryRepo;
+-}
++    public function __construct(EntityManagerInterface $entityManager, CategoryRepository $categoryRepo)
++    {
++        $this->entityManager = $entityManager;
++        $this->categoryRepo  = $categoryRepo;
++    }
+ 
+-#[Route('/category', name: 'app_category')]
+-public function index(): Response
+-{
+-$category = $this->categoryRepo->findAll();
++    #[Route('/category', name: 'app_category')]
++    public function index(): Response
++    {
++        $category = $this->categoryRepo->findAll();
+ 
+-return $this->render('category/index.html.twig', [
+-'category' => $category,
+-]);
+-}
++        return $this->render('category/index.html.twig', [
++            'category' => $category,
++        ]);
++    }
+ 
+-#[Route('/category/create', name: 'app_category_create')]
+-public function create(Request $request): Response
+-{
+-$form = $this->createForm(CategoryFormType::class);
+-
+-$form->handleRequest($request);
+-if ($form->isSubmitted() && $form->isValid()) {
+-$category = $form->getData();
+-$this->entityManager->persist($category);
+-$this->entityManager->flush();
+-return $this->redirectToRoute('app_category');
+-}
++    #[Route('/category/create', name: 'app_category_create')]
++    public function create(Request $request): Response
++    {
++        $form = $this->createForm(CategoryFormType::class);
++
++        $form->handleRequest($request);
++        if ($form->isSubmitted() && $form->isValid()) {
++            $category = $form->getData();
++            $this->entityManager->persist($category);
++            $this->entityManager->flush();
++
++            return $this->redirectToRoute('app_category');
++        }
++
++        return $this->render('category/create.html.twig', [
++            'form' => $form->createView(),
++        ]);
++    }
+ 
+-return $this->render('category/create.html.twig', [
+-'form' => $form->createView(),
+-]);
+-}
+     #[Route('/category/update/{id}', name: 'app_category_update')]
+     public function updateCategory(int $id, Request $request): Response
+     {
+@@ -64,8 +65,10 @@ return $this->render('category/create.html.twig', [
+         if ($form->isSubmitted() && $form->isValid()) {
+             $product = $form->getData();
+             $this->entityManager->flush();
++
+             return $this->redirectToRoute('app_category');
+         }
++
+         return $this->render('category/update.html.twig', [
+             'form' => $form->createView(),
+         ]);
+@@ -76,8 +79,7 @@ return $this->render('category/create.html.twig', [
+     {
+         $category = $this->categoryRepo->find($id);
+ 
+-        if ($category === null)
+-        {
++        if ($category === null) {
+             dd('error 404');
+         }
+ 
+@@ -87,6 +89,7 @@ return $this->render('category/create.html.twig', [
+ 
+ 
+     }
++
+     #[Route('/category/{id}/delete', name: 'app_category_delete_by_id', methods: ['POST'])]
+     public function deleteCategoryById(int $id, EntityManagerInterface $entityManager): Response
+     {
+@@ -103,5 +106,4 @@ return $this->render('category/create.html.twig', [
+     }
+ 
+ 
+-
+ }
+-- 
+2.37.0
+
