@@ -31,7 +31,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/categories/create', name: 'app_category_create')]
+    #[Route('/category/create', name: 'app_category_create')]
     public function create(Request $request): Response
     {
         $form = $this->createForm(CategoryFormType::class);
@@ -50,7 +50,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/categories/update/{id}', name: 'app_category_update')]
+    #[Route('/category/update/{id}', name: 'app_category_update')]
     public function updateCategory(int $id, Request $request): Response
     {
         $category = $this->categoryRepo->find($id);
@@ -73,7 +73,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/categories/delete/{id}', name: 'app_category_delete')]
+    #[Route('/category/delete/{id}', name: 'app_category_delete')]
     public function deleteUser(int $id): Response
     {
         $category = $this->categoryRepo->find($id);

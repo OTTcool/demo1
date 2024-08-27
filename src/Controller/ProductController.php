@@ -38,7 +38,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/products/create', name: 'app_product_create')]
+    #[Route('/product/create', name: 'app_product_create')]
     public function create(Request $request): Response
     {
         $form = $this->createForm(ProductFormType::class);
@@ -68,7 +68,7 @@ class ProductController extends AbstractController
 //        return $this->redirectToRoute('app_product');
 //    }
 
-    #[Route('/products/read/{id}', name: 'app_product_read')]
+    #[Route('/product/read/{id}', name: 'app_product_read')]
     public function readProduct(int $id): Response
     {
         $product = $this->productRepo->find($id);
@@ -85,7 +85,7 @@ class ProductController extends AbstractController
 
     }
 
-    #[Route('/products/update/{id}', name: 'app_product_update')]
+    #[Route('/product/update/{id}', name: 'app_product_update')]
     public function updateProduct(int $id, Request $request): Response
     {
         $product = $this->productRepo->find($id);
@@ -107,7 +107,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/products/delete/{id}', name: 'app_product_delete')]
+    #[Route('/product/delete/{id}', name: 'app_product_delete')]
     public function deleteProduct(int $id): Response
     {
         $product = $this->productRepo->find($id);

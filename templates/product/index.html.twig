@@ -17,7 +17,7 @@
 <body>
 <div class="container mt-5">
     <h1 class="display-4 text-primary font-weight-bold">Product List</h1>
-    <a href="/products/create" class="btn btn-success mb-3">Add product</a>
+    <a href="/product/create" class="btn btn-success mb-3">Add product</a>
     <table class="table table-bordered table-striped table-hover ">
         <thead class="thead-light">
         <tr>
@@ -31,9 +31,12 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.comment }}</td>
                 <td>
-                    <a href="/products/read/{{ product.id }}" class="btn btn-info btn-sm">Read</a>
-                    <a href="/products/update/{{ product.id }}" class="btn btn-warning btn-sm">Update</a>
-                    <a href="/products/delete/{{ product.id }}" class="btn btn-danger btn-sm">Delete</a>
+{#                    <a href="/product/read/{{ product.id }}" class="btn btn-info btn-sm">Read</a>#}
+{#                    <a href="/product/update/{{ product.id }}" class="btn btn-warning btn-sm">Update</a>#}
+{#                    <a href="/product/delete/{{ product.id }}" class="btn btn-danger btn-sm">Delete</a>#}
+                    <a href="{{ path('app_product_read', {id: product.id}) }}" class="btn btn-info btn-sm">Read</a>
+                    <a href="{{ path('app_product_update', {id: product.id}) }}" class="btn btn-warning btn-sm">Update</a>
+                    <a href="{{ path('app_product_delete', {id: product.id}) }}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
         {% endfor %}
