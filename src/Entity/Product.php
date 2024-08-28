@@ -10,8 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
-
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,12 +18,6 @@ class Product
     #[ORM\Column(length: 50, nullable: true)]
     #[Assert\NotBlank]
     private ?string $name = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $size = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $company = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
@@ -47,30 +39,6 @@ class Product
     public function setName(?string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    public function setSize(string $size): static
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    public function getCompany(): ?string
-    {
-        return $this->company;
-    }
-
-    public function setCompany(string $company): static
-    {
-        $this->company = $company;
 
         return $this;
     }
@@ -98,6 +66,4 @@ class Product
 
         return $this;
     }
-
-
 }
