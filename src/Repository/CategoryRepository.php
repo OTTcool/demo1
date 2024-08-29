@@ -17,7 +17,7 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return Category[] Returns an array of Category objects
+    //     * @return CategoryAdmin[] Returns an array of CategoryAdmin objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class CategoryRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Category
+    //    public function findOneBySomeField($value): ?CategoryAdmin
     //    {
     //        return $this->createQueryBuilder('c')
     //            ->andWhere('c.exampleField = :val')

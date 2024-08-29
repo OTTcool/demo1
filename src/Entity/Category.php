@@ -32,6 +32,8 @@ class Category
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
 

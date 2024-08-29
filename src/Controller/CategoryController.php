@@ -56,7 +56,7 @@ class CategoryController extends AbstractController
         $category = $this->categoryRepo->find($id);
 
         if ($category === null) {
-            throw $this->createNotFoundException('Category not found');
+            throw $this->createNotFoundException('CategoryAdmin not found');
         }
 
         $form = $this->createForm(CategoryFormType::class, $category);
