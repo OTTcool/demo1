@@ -18,11 +18,14 @@
 <div class="container mt-5">
     <h1 class="display-4 text-primary font-weight-bold">Product List</h1>
     <a href="{{ path('app_product_create') }}" class="btn btn-success mb-3">Add product</a>
+    <a href="{{ path('app_category') }}" class="btn btn-success mb-3 "> Category </a>
+    <a href="{{ path('app_logout') }}" class="btn btn-success mb-3 float-right">Log Out</a>
     <table class="table table-bordered table-striped table-hover ">
         <thead class="thead-light">
         <tr>
             <th>Name</th>
             <th>Comment</th>
+            <th> Category</th>
             <th>Actions</th>
         </thead>
         <tbody>
@@ -30,6 +33,7 @@
             <tr>
                 <td>{{ product.name }}</td>
                 <td>{{ product.comment }}</td>
+                <td>{{ product.category }}</td>
                 <td>
 {#                    <a href="/product/read/{{ product.id }}" class="btn btn-info btn-sm">Read</a>#}
 {#                    <a href="/product/update/{{ product.id }}" class="btn btn-warning btn-sm">Update</a>#}

@@ -1,29 +1,51 @@
 security:
+    access_control:
+    - { path: ^/products, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/product, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/categories, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/category, roles: IS_AUTHENTICATED_FULLY }
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
+        # the order in which firewalls are defined is very important, as the
+        # request will be handled by the first firewall whose pattern matches
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        # a firewall with no pattern should be defined last because it will match all requests
         main:
+            entry_point: form_login
+            http_basic:
+                realm: Secured Area
+            json_login:
+                # api_login is a route we will create below
+                check_path: api_login
             lazy: true
-            provider: users_in_memory
+            # provider that you set earlier inside providers
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: app_login
 
             # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
-    access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:
