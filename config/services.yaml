@@ -29,6 +29,10 @@ services:
         class: App\Admin\ProductAdmin
         tags:
             - {name: sonata.admin, model_class: App\Entity\Product, manager_type: orm, label: Product}
+    admin.user:
+        class: App\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, model_class: App\Entity\User, manager_type: orm, label: User }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
